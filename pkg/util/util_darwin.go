@@ -1,3 +1,6 @@
+//go:build darwin
+// +build darwin
+
 package util
 
 import (
@@ -220,7 +223,7 @@ func GetHeadFileModifyTimeAndSize(file string) (int64, int64, error) {
 		return 0, 0, err
 	}
 
-	return st.Mtim.Nano(), st.Blocks * BlockSizeLinux, nil
+	return st.Mtimespec.Nano(), st.Blocks * BlockSizeLinux, nil
 }
 
 func ParseLabels(labels []string) (map[string]string, error) {
