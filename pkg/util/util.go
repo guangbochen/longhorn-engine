@@ -220,6 +220,10 @@ func GetHeadFileModifyTimeAndSize(file string) (int64, int64, error) {
 		return 0, 0, err
 	}
 
+	if runtime.GOOS == "darwin" {
+		return st.Mtimespec.Nano(), st.Blocks * BlockSizeLinux, nil
+	}
+
 	return st.Mtim.Nano(), st.Blocks * BlockSizeLinux, nil
 }
 
